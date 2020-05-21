@@ -1,0 +1,169 @@
+body {
+    margin: 0px;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+
+.toolbar {
+    display: flex;
+    background: #333;
+    justify-content: center;
+}
+
+.toolbar > div {
+    /* border: 1px solid red; */
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.toolbar > div.button {
+    padding: 20px 10px;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.mr-auto {
+    margin-right: auto;
+}
+
+h1 {
+    line-height: 50px;
+    font-size: 50px;
+    /* margin-bottom: 0.25em; */
+    margin: 0px;
+    color:#eee;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+
+
+p, button, input {
+    font-size: 1.25em;
+    line-height: 30px;
+    background: none;
+    color: #eee;
+    margin: auto;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+
+button {
+    cursor: pointer;
+    border-radius: 10px;
+    transition: opacity 0.5s;
+    transition: background-color 0.3s;
+}
+
+button:hover, button.selected, button.selected:disabled {
+    background: #eee;
+    color: #333;
+}
+
+button:disabled {
+    cursor: default;
+    background: none;
+    color: #eee;
+    opacity: 0.5;
+}
+
+.game {
+    /* border: 1px solid red; */
+    margin: 80px auto 20px;
+    width: 100%;
+    /* max-width: 950px; */
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+}
+
+.board {
+    /* border: 1px solid red; */
+	position: relative;
+	margin: 0px 0px 20px;
+	width: 400px;
+    height: 400px;
+    padding: 0px 50px;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;  
+}
+
+.board div {
+	position: relative;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;      
+	background: #f6f8f9;
+	border: 1px solid #ddd;
+	width: 40px;
+    height: 40px;
+    transition: opacity 1.0s;
+}
+
+/* .board div:hover {
+    background: rgba(255, 0, 0, 0.25);
+} */
+
+.board div.hit {
+    background: red;
+    transition: background-color 0.1s;
+}
+
+.board div.miss {
+    background: #bbb;
+    transition: background-color 0.1s;
+}
+
+.board div.ship {
+    background: #333;
+    transition: background-color 0.1s;
+}
+
+.panel {
+    border: 2px solid #333;
+    border-radius: 20px;
+    display: grid;
+    height: 125px;
+    width: 125px;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    grid-template-columns: auto auto; 
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    color: #333;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.panel > div {
+    /* border: 1px solid red; */
+    height: 20px;
+    line-height: 20px;
+    transition: opacity 0.3s;
+}
+
+.footer {
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-label {
+    /* border: 1px solid red; */
+    /* margin: 0px 250px; */
+    /* padding: 0px 250px; */
+    text-align: center;
+    width: 500px;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    color: #333;
+    font-size: 30px;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.opaque {
+    transition: opacity 1.0s;
+    opacity: 0.5;
+}
