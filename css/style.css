@@ -49,8 +49,15 @@ p, button, input {
 button {
     cursor: pointer;
     border-radius: 10px;
+    border-color: #eee;
     transition: opacity 0.5s;
     transition: background-color 0.3s;
+}
+
+#start-btn {
+    /* border: 2px; */
+    border-width: 3px;
+    font-weight: bold;
 }
 
 button:hover, button.selected, button.selected:disabled {
