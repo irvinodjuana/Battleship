@@ -110,11 +110,12 @@ class HuntTargetAI extends AI {
 }
 
 
+/* This AI estimates the probability of ships being in each cell */
 class ProbabilityAI extends AI {
     constructor() {
         super();
         // define constants
-        this.WEIGHT = 4;
+        this.WEIGHT = 8;
         this.UNVISITED = 0;
         this.HIT = -1;
         this.MISS_SUNK = -2;
