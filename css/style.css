@@ -3,6 +3,10 @@ body {
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .toolbar {
     display: flex;
     background: #333;
@@ -55,7 +59,6 @@ button {
 }
 
 #start-btn {
-    /* border: 2px; */
     border-width: 3px;
     font-weight: bold;
 }
