@@ -54,3 +54,24 @@ function randomBoard() {
     }
     return board;
 }
+
+/* Return a map of hit/miss/ship to matching cells */
+function getBoardState(elementId, board) {
+    let rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    let id = elementId[0];
+    let coordMap = {};
+    coordMap[HIT] = [];
+    coordMap[MISS] = [];
+    coordMap[EMPTY] = [];
+    for (let ship of SHIPS) {
+        coordMap[ship] = []
+    }
+
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            let cell = board[i][j];
+            coordMap[cell].push(`${id}${rows[i]}${j}`);
+        }
+    }
+    return coordMap;
+}

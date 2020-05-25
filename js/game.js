@@ -1,175 +1,13 @@
-// Define constants
-const EMPTY = 0;
-const HIT = -1;
-const MISS = -2;
-const N = 10;
-
-const CARRIER = 1;
-const BATTLESHIP = 2;
-const DESTROYER = 3;
-const SUBMARINE = 4;
-const PATROLBOAT = 5;
-const SHIPS = [CARRIER, BATTLESHIP, DESTROYER, SUBMARINE, PATROLBOAT];
-
-const SIZES = {}
-SIZES[CARRIER] = 5;
-SIZES[BATTLESHIP] = 4;
-SIZES[DESTROYER] = 3;
-SIZES[SUBMARINE] = 3;
-SIZES[PATROLBOAT] = 2;
-
-/* sleep function */
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// TODO: Pass args as params instead of directly changing Game fields
-
-/* Handle player clicking randomize button */
-function handleRandomizeClick() { 
-    game.playerBoard = randomBoard();
-    let state = game.getBoardState("playerboard", game.playerBoard);
-    render(state, true, true);
-}
-
-/* Handle player clicking start button */
-function handleStartClick() {
-    // disable 
-    let buttonIds = ['start-btn', 'randomize-btn', 'easy-btn', 'medium-btn', 'hard-btn'];
-    for (let id of buttonIds) {
-        document.getElementById(id).disabled = true;
-    }
-
-    for (let id of ['player-panel', 'ai-panel']) {
-        document.getElementById(id).classList.remove("opaque");
-    }
-
-    if (game.difficulty === null) {
-        document.getElementById('easy-btn').className = "selected";
-        game.difficulty = "easy";
-    } 
-
-    game.start();
-}
-
-/* Handle player clicking (easy/medium/hard) button */
-function handleDifficultyClick(selectedId) {
-    for (let id of ['easy-btn', 'medium-btn', 'hard-btn']) {
-        let button = document.getElementById(id);
-        if (id === selectedId) {
-            let difficulty = id.split('-')[0];
-            game.difficulty = difficulty;
-            button.className = "selected";
-        } else {
-            button.className = "";
-        }
-    }
-}
-
-
-/* Handle player cell selection on enemy board */
-function handleBoardClick(id) {
-    game.playerSelect = id.substring(1);
-}
-
-
-/* Display when a ship has sunk */
-function displaySink(owner, shipId) {
-    if (owner === "player" || owner === "ai") {
-        document.getElementById(`${owner}-ship-label-${shipId}`).style.color = "red";
-        document.getElementById(`${owner}-ship-count-${shipId}`).style.color = "red";
-    } else {
-        console.log("Warning: Invalid sink: " + owner);
-    }
-}
-
-/* Initialize HTML document with two empty boards */
-function initBoards() {
-    let boardIds = ["playerboard", "enemyboard"]
-    let rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    // init grey spaces
-    for (let boardId of boardIds) {
-        let board = document.getElementById(boardId);
-        let id = boardId[0];
-        for (let row of rows) {
-            for (let col = 0; col < 10; col++) {
-                let div = document.createElement("div");
-                div.id = `${id}${row}${col}`;
-                div.className = "opaque";
-                if (boardId === "enemyboard") {
-                    div.onclick = () => handleBoardClick(div.id);
-                }
-                board.appendChild(div);
-            }
-        }
-    }
-}
-
-/* Render a map of cell states onto the document */
-function render(coordMap, renderShips=true, opaque=false) {
-    for (let state of Object.keys(coordMap)) {
-        let opacity = (opaque) ? "opaque " : "";
-        for (let cellId of coordMap[state]) {
-            let div = document.getElementById(cellId);
-
-            if (state == EMPTY) {
-                div.className = opacity;
-            } else if (state == HIT) {
-                div.className = opacity + "hit";
-            } else if (state == MISS) {
-                div.className = opacity + "miss";
-            } else if (renderShips) {
-                div.className = opacity + "ship";
-            } else {
-                div.className = opacity;
-            }
-        }
-    }
-}
-
-
-/* Display the game winner */
-function displayWinner(winner, loser) {
-    let winnerElem = document.getElementById(`${winner}-footer`);
-    let loserElem = document.getElementById(`${loser}-footer`);
-    loserElem.innerText = " ";
-    winnerElem.innerText += " Wins!";
-
-    winnerElem.style.color = (winner === "player") ? "green" : "red";
-}
-
-
 /*
  * Model class that handles the state of the game
  */
 class Game {
-    constructor() {
-        this.playerBoard = null;
+    constructor(difficulty, playerBoard) {
+        this.difficulty = difficulty;
+        this.playerBoard = playerBoard;
         this.enemyBoard = null;
         this.playerSelect = null;
         this.progressState = null;
-        this.difficulty = null;
-    }
-
-    /* Return a map of hit/miss/ship to matching cells */
-    getBoardState(documentId, board) {
-        let rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-        let id = documentId[0];
-        let coordMap = {};
-        coordMap[HIT] = [];
-        coordMap[MISS] = [];
-        coordMap[EMPTY] = [];
-        for (let ship of SHIPS) {
-            coordMap[ship] = []
-        }
-
-        for (let i = 0; i < board.length; i++) {
-            for (let j = 0; j < board[0].length; j++) {
-                let cell = board[i][j];
-                coordMap[cell].push(`${id}${rows[i]}${j}`);
-            }
-        }
-        return coordMap;
     }
 
     /* Starts the game */
@@ -179,7 +17,7 @@ class Game {
         if (this.enemyBoard == null) this.enemyBoard = randomBoard();
 
         // determine appropriate AI
-        switch (game.difficulty) {
+        switch (this.difficulty) {
             case "easy":
                 this.enemyAI = new AIFactory().getEasy();
                 break;
@@ -195,8 +33,8 @@ class Game {
         }
 
         // render boards
-        this.playerState = this.getBoardState("playerboard", this.playerBoard);
-        this.enemyState = this.getBoardState("enemyboard", this.enemyBoard);
+        this.playerState = getBoardState("playerboard", this.playerBoard);
+        this.enemyState = getBoardState("enemyboard", this.enemyBoard);
         render(this.playerState);
         render(this.enemyState, false);
 
@@ -237,8 +75,8 @@ class Game {
             this.playerBoard[i][j] = cell;
             
             // fetch board state maps
-            const newEnemyState = this.getBoardState("enemyboard", this.enemyBoard);
-            const newPlayerState = this.getBoardState("playerboard", this.playerBoard);
+            const newEnemyState = getBoardState("enemyboard", this.enemyBoard);
+            const newPlayerState = getBoardState("playerboard", this.playerBoard);
 
 
             // display to user if enemy ship sunk
@@ -279,19 +117,12 @@ class Game {
 
             num_turns += 1;
         }
+        this.endGame();
+    }
 
+    endGame() {
         render(this.enemyState, true);
+        toggleButtons(false);
+        settings.playerBoard = null;
     }
 }
-
-// Start game
-var game = new Game();
-initBoards();
-
-for (let id of ['easy-btn', 'medium-btn', 'hard-btn']) {
-    document.getElementById(id).onclick = () => handleDifficultyClick(id);
-}
-document.getElementById('randomize-btn').onclick = () => handleRandomizeClick();
-document.getElementById('start-btn').onclick = () => handleStartClick();
-
-
