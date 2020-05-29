@@ -20,7 +20,8 @@ Good luck and have fun!
 ## AI Strategies
 The primary motivation of this project was to implement some of the various automated battleship strategies for fun. The web page mostly exists just because my friends don't typically like to play games through the command line. 
 
-These strategies are heavily inspired by this blog post: http://datagenetics.com/blog/december32011/index.html
+These strategies are heavily inspired by this blog post: http://datagenetics.com/blog/december32011/index.html 
+
 Check it out if you're interested in games or probability!
 
 
