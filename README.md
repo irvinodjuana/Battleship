@@ -15,9 +15,9 @@ The primary motivation of this project was to implement some of the various auto
 
 These strategies are heavily inspired by this blog post: http://datagenetics.com/blog/december32011/index.html 
 
-- Easy: Randomly choose coordinates without repetition
-- Medium: Search randomly until hit found - then, conduct depth-first search, recursing if node is another hit
-- Hard: Estimate likelihood of each cell containing a ship by "density" - iterating through each remaining ship and incrementing a counter for all possible locations
+- **Easy**: Randomly choose coordinates without repetition
+- **Medium**: Search randomly until hit found - then, conduct depth-first search, recursing if node is another hit
+- **Hard**: Estimate likelihood of each cell containing a ship by "density" - iterating through each remaining ship and incrementing a counter for all possible locations
 
 ## Screenshots
 <img width="1440" alt="Selection Phase" src="https://user-images.githubusercontent.com/42985539/83218651-33034100-a123-11ea-8692-1596f67c0334.png">
