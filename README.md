@@ -10,19 +10,19 @@ In this online version, you can instead play against a program set to Easy, Medi
 
 Good luck and have fun!
 
-## Screenshots
-<img width="1440" alt="Selection Phase" src="https://user-images.githubusercontent.com/42985539/83218651-33034100-a123-11ea-8692-1596f67c0334.png">
-<img width="1440" alt="Play Phase" src="https://user-images.githubusercontent.com/42985539/83218737-68a82a00-a123-11ea-8c49-fa713aa6970f.png">
-<img width="1440" alt="Win Phase" src="https://user-images.githubusercontent.com/42985539/83218664-3c8ca900-a123-11ea-962a-ae605ed9e1bb.png">
-
-
-
 ## AI Strategies
 The primary motivation of this project was to implement some of the various automated battleship strategies for fun. The web page mostly exists just because my friends don't typically like to play games through the command line. 
 
 These strategies are heavily inspired by this blog post: http://datagenetics.com/blog/december32011/index.html 
 
-Check it out if you're interested in games or probability!
+- Easy: Randomly choose coordinates without repetition
+- Medium: Search randomly until hit found - then, conduct depth-first search, recursing if node is another hit
+- Hard: Estimate likelihood of each cell containing a ship by "density" - iterating through each remaining ship and incrementing a counter for all possible locations
+
+## Screenshots
+<img width="1440" alt="Selection Phase" src="https://user-images.githubusercontent.com/42985539/83218651-33034100-a123-11ea-8692-1596f67c0334.png">
+<img width="1440" alt="Play Phase" src="https://user-images.githubusercontent.com/42985539/83218737-68a82a00-a123-11ea-8c49-fa713aa6970f.png">
+<img width="1440" alt="Win Phase" src="https://user-images.githubusercontent.com/42985539/83218664-3c8ca900-a123-11ea-962a-ae605ed9e1bb.png">
 
 
 
