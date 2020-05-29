@@ -1,23 +1,3 @@
-// Define constants
-const EMPTY = 0;
-const HIT = -1;
-const MISS = -2;
-const N = 10;
-
-const CARRIER = 1;
-const BATTLESHIP = 2;
-const DESTROYER = 3;
-const SUBMARINE = 4;
-const PATROLBOAT = 5;
-const SHIPS = [CARRIER, BATTLESHIP, DESTROYER, SUBMARINE, PATROLBOAT];
-
-const SIZES = {}
-SIZES[CARRIER] = 5;
-SIZES[BATTLESHIP] = 4;
-SIZES[DESTROYER] = 3;
-SIZES[SUBMARINE] = 3;
-SIZES[PATROLBOAT] = 2;
-
 // game settings
 var settings = {
     playerBoard: null,
